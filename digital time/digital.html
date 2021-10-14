@@ -11,7 +11,7 @@
     />
   </head>
   <body>
-    <div class="container">
+    <div class="container-fluid bg-light text-primary display-4 text-center p-5">
       <div id="digitalClock" onload="currentTime()"></div>
     </div>
 
@@ -22,12 +22,23 @@
       function currentTime() {
         var date = new Date();
         var hours = date.getHours();
-        var minuts = date.getMinutes();
+        var minute = date.getMinutes();
         var second = date.getSeconds();
         var session = "AM";
 
-        
-        var time = hours + ":" + minuts + ":" + second + " " + session;
+        if (hours === 0) {
+          hours = 12;
+        }
+        if (hours > 12) {
+          hours = hours - 12;
+          session = "PM";
+        }
+
+        hours = hours < 10 ? "0" + hours : hours;
+        minute = minute < 10 ? "0" + minute : minute;
+        second = second < 10 ? "0" + second : second;
+
+        var time = hours + ":" + minute + ":" + second + " " + session;
         // var time=`{${housr} :  ${minuts} :  ${second} :  ${session}}`
 
         document.getElementById("digitalClock").innerText = time;
